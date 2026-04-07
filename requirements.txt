@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+python-multipart
+pydantic
+numpy
+faiss-cpu
+pillow
+torch
+transformers
+open_clip_torch
+pymupdf
+python-dotenv
+langchain-ollama
+langgraph
+langchain-community
+langchain-core
