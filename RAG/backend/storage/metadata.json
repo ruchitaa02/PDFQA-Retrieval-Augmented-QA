@@ -1,0 +1,1501 @@
+{
+    "0": {
+        "content": "PDFQA: Retrieval-augmented generative question\nanswering system for educational PDFs\nThumma Sritejaswini Reddy\nDepartment of Computer\nScience and Engineering\nAnurag University\nHyderabad,Telangana\n22eg105d55@anurag.edu.in\nKore Dinesh Kumar\nDepartment of Computer\nScience and Engineering\nAnurag University\nHyderabad,Telangana\n22eg105d25@anurag.edu.in\nRuchita Chinchalkar\nDepartment of Computer\nScience and Engineering\nAnurag University\nHyderabad,Telangana\n22eg105d49@anurag.edu.in\nEtukala Sai Vardhan Goud\nDepartment of Computer\nScience and Engineering\nAnurag University\nHyderabad,Telangana\n23eg505d03@anurag.edu.in\nDr. M purnachary\nAssistant Professor\nDepartment of Computer\nScience and Engineering\nAnurag University\nHyderabad, Telangana\nPurnacharycse@anurag.edu.in\nAbstract\u2014Retrieval-Augmented Generation (RAG) solutions\nare a newly emerging best practice for storing Large Language\nModel (LLM) answers in a manner grounded in factual in-\nformation contained in user-supplied content (e.g., documents",
+        "type": "text",
+        "source": "RAG.pdf",
+        "page": 1
+    },
+    "1": {
+        "content": "\u2022 For local vector storage, OmniRAG uses FAISS\u2019s index-\ning and vectoring capabilities with flat indexes and per-\nforms cosine similarity searches, allowing text to match\nagainst images and vice versa. It enables cross-modal\nretrieval or effective searches of the document space\nirrespective of modality, with many possible matching\ninstances (text-image or image-text).\n\u2022 An agentic reasoning loop is based on the Lang-\nGraph framework, within which the LLM can choose\nto\ninvoke\neither\nthe\nretrieve_documents\nor\nsearch_chat_history tools based upon query clas-\nsification.\n\u2022 A complete production stack with a full Next.js frontend\nimplementing a chatbot style interface for user interaction\nand a FastAPI backend interacts with an LLM based upon\nthe Qwen3-VL vision-language model executed on local\ninfrastructure via Ollama.\nII. RELATED WORK\nA. Retrieval-Augmented Generation\nLewis et al. [3] created a Retrieval-Augmented Gener-\nation (RAG) method that entails combining a pre-trained\nsequence-to",
+        "type": "text",
+        "source": "RAG.pdf",
+        "page": 2
+    },
+    "2": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "RAG.pdf",
+        "path": "storage/images\\RAG.pdf_p2_img0.png",
+        "page": 2
+    },
+    "3": {
+        "content": "A. Frontend Layer\nThe Next.js 14 frontend uses the App Router, React,\nTypeScript, and TailwindCSS to create a unique style single-\npage application with a sidebar that allows users to manage\nchat history (create, select, delete), and a central chat panel\nthat supports the inline upload of documents. Assistant user\nresponses are displayed using react-markdown with remark-\ngfm for proper formatting of tables, headers, and code blocks\n(1). Communication between the frontend and backend occurs\nvia an extended REST API request-response mechanism (600\nseconds) to support the long inference times of larger models\nused for inferencing.\nB. Backend Layer\nThe backend is built with Python version 3.10 using FastAPI\nand Uvicorn.\nThere are three major groups of endpoints:\n\u2022 /upload: This endpoint will take in both PDFs and\nimage files, send them to the proper processor, and store\nthe embeddings in FAISS.\n\u2022 /chats: This endpoint provides the functionality to\nperform CRUD operations related to your ch",
+        "type": "text",
+        "source": "RAG.pdf",
+        "page": 3
+    },
+    "4": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "RAG.pdf",
+        "path": "storage/images\\RAG.pdf_p3_img0.png",
+        "page": 3
+    },
+    "5": {
+        "content": "system prompt, conversation history, and current ques-\ntion and any associated media.\n2) Tool Node: Executes calls to tools requested by the\nReasoner. There are two available tools:\n\u2022 retrieve_documents(query): Encodes the\nquery using the CLIP text encoder and searches for\nsimilar docu- ments in a FAISS-generic way and\nreturns the three most similar documents and their\nmetadata.\n\u2022 search_chat_history(query):\nSearches\nthrough the entire history of chat sessions and\nretrieves previous messages that match the query\nusing keyword matching.\nThe agent model has a conditional edge structure; after a\nreasoner produces a response, the tools condition function is\ncalled to check if tool calls were made and, if so, the Tool\nNode is called to execute the tools and return their results\nto the Reasoner for a second pass. If no tool executions are\nrequired, the response is returned directly to the user.\nThe system prompt implements a query classification strat-\negy that directs the LLM to:\n\u2022 Directly",
+        "type": "text",
+        "source": "RAG.pdf",
+        "page": 4
+    },
+    "6": {
+        "content": "Image extracted from page 4",
+        "type": "image",
+        "source": "RAG.pdf",
+        "path": "storage/images\\RAG.pdf_p4_img0.png",
+        "page": 4
+    },
+    "7": {
+        "content": "The baseline of Text-Only BM25 fails entirely on any query\nrelated to an image due to their inability to process visual\ncontent when retrieving. In comparison, Dense text retrieval\ncan retrieve text in someway better than BM25 because it\nhas the ability to also take into consideration the semantic\nsimilarity of the documents but is that there is still no way for\nthem to retrieve images as well. The separate encoder approach\nuses two different encoding tools to classify and encode\nimages and text respectively. This leads to each space (text\nand image) being misaligned, resulting in a lower accuracy of\ncross-modal retrievals. OmniRAG does not suffer from this\nissue because it uses a single CLIP embedding space for\nencoding both text and images respectively, allowing for the\ndirect comparison of text and image vectors which produces\nthe highest retrieval accuracy of 89.0%.\nC. Agent Tool-Calling Behavior\nThe agentic architecture was tested against the capability of\nthe intelligent system (",
+        "type": "text",
+        "source": "RAG.pdf",
+        "page": 5
+    },
+    "8": {
+        "content": "Department of Computer Science and Engineering \nIV B.Tech II Semester Major Project \nSupervisor Approval Letter \n \nProject Title: \n \nTeam Members: \nH. No \nName of the Student \nSignature \n \n \n \n \n \n \n \n \n \n \n \n \n \n \nRecommendation: Approved/Not Approved \n \n \nRemarks \n \n \n \n \nSignature of Supervisor \nSeminars \nDate \n(\uf050/\uf04f) \n1. Review I \n03.01.2026 \n \n2. Review II \n \n \n3. Review III",
+        "type": "text",
+        "source": "MAJOR PROJECT REVIEW I SCHEDULE.pdf",
+        "page": 1
+    },
+    "9": {
+        "content": "Image extracted from page 1",
+        "type": "image",
+        "source": "MAJOR PROJECT REVIEW I SCHEDULE.pdf",
+        "path": "storage/images\\MAJOR PROJECT REVIEW I SCHEDULE.pdf_p1_img0.png",
+        "page": 1
+    },
+    "10": {
+        "content": "PDFQA: Retrieval-augmented generative question\nanswering system for educational PDFs\nThumma Sritejaswini Reddy\nDepartment of Computer\nScience and Engineering\nAnurag University\nHyderabad,Telangana\n22eg105d55@anurag.edu.in\nKore Dinesh Kumar\nDepartment of Computer\nScience and Engineering\nAnurag University\nHyderabad,Telangana\n22eg105d25@anurag.edu.in\nRuchita Chinchalkar\nDepartment of Computer\nScience and Engineering\nAnurag University\nHyderabad,Telangana\n22eg105d49@anurag.edu.in\nEtukala Sai Vardhan Goud\nDepartment of Computer\nScience and Engineering\nAnurag University\nHyderabad,Telangana\n23eg505d03@anurag.edu.in\nDr. M purnachary\nAssistant Professor\nDepartment of Computer\nScience and Engineering\nAnurag University\nHyderabad, Telangana\nPurnacharycse@anurag.edu.in\nAbstract\u2014Retrieval-Augmented Generation (RAG) solutions\nare a newly emerging best practice for storing Large Language\nModel (LLM) answers in a manner grounded in factual in-\nformation contained in user-supplied content (e.g., documents",
+        "type": "text",
+        "source": "RAG.pdf",
+        "page": 1
+    },
+    "11": {
+        "content": "\u2022 For local vector storage, OmniRAG uses FAISS\u2019s index-\ning and vectoring capabilities with flat indexes and per-\nforms cosine similarity searches, allowing text to match\nagainst images and vice versa. It enables cross-modal\nretrieval or effective searches of the document space\nirrespective of modality, with many possible matching\ninstances (text-image or image-text).\n\u2022 An agentic reasoning loop is based on the Lang-\nGraph framework, within which the LLM can choose\nto\ninvoke\neither\nthe\nretrieve_documents\nor\nsearch_chat_history tools based upon query clas-\nsification.\n\u2022 A complete production stack with a full Next.js frontend\nimplementing a chatbot style interface for user interaction\nand a FastAPI backend interacts with an LLM based upon\nthe Qwen3-VL vision-language model executed on local\ninfrastructure via Ollama.\nII. RELATED WORK\nA. Retrieval-Augmented Generation\nLewis et al. [3] created a Retrieval-Augmented Gener-\nation (RAG) method that entails combining a pre-trained\nsequence-to",
+        "type": "text",
+        "source": "RAG.pdf",
+        "page": 2
+    },
+    "12": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "RAG.pdf",
+        "path": "storage/images\\RAG.pdf_p2_img0.png",
+        "page": 2
+    },
+    "13": {
+        "content": "A. Frontend Layer\nThe Next.js 14 frontend uses the App Router, React,\nTypeScript, and TailwindCSS to create a unique style single-\npage application with a sidebar that allows users to manage\nchat history (create, select, delete), and a central chat panel\nthat supports the inline upload of documents. Assistant user\nresponses are displayed using react-markdown with remark-\ngfm for proper formatting of tables, headers, and code blocks\n(1). Communication between the frontend and backend occurs\nvia an extended REST API request-response mechanism (600\nseconds) to support the long inference times of larger models\nused for inferencing.\nB. Backend Layer\nThe backend is built with Python version 3.10 using FastAPI\nand Uvicorn.\nThere are three major groups of endpoints:\n\u2022 /upload: This endpoint will take in both PDFs and\nimage files, send them to the proper processor, and store\nthe embeddings in FAISS.\n\u2022 /chats: This endpoint provides the functionality to\nperform CRUD operations related to your ch",
+        "type": "text",
+        "source": "RAG.pdf",
+        "page": 3
+    },
+    "14": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "RAG.pdf",
+        "path": "storage/images\\RAG.pdf_p3_img0.png",
+        "page": 3
+    },
+    "15": {
+        "content": "system prompt, conversation history, and current ques-\ntion and any associated media.\n2) Tool Node: Executes calls to tools requested by the\nReasoner. There are two available tools:\n\u2022 retrieve_documents(query): Encodes the\nquery using the CLIP text encoder and searches for\nsimilar docu- ments in a FAISS-generic way and\nreturns the three most similar documents and their\nmetadata.\n\u2022 search_chat_history(query):\nSearches\nthrough the entire history of chat sessions and\nretrieves previous messages that match the query\nusing keyword matching.\nThe agent model has a conditional edge structure; after a\nreasoner produces a response, the tools condition function is\ncalled to check if tool calls were made and, if so, the Tool\nNode is called to execute the tools and return their results\nto the Reasoner for a second pass. If no tool executions are\nrequired, the response is returned directly to the user.\nThe system prompt implements a query classification strat-\negy that directs the LLM to:\n\u2022 Directly",
+        "type": "text",
+        "source": "RAG.pdf",
+        "page": 4
+    },
+    "16": {
+        "content": "Image extracted from page 4",
+        "type": "image",
+        "source": "RAG.pdf",
+        "path": "storage/images\\RAG.pdf_p4_img0.png",
+        "page": 4
+    },
+    "17": {
+        "content": "The baseline of Text-Only BM25 fails entirely on any query\nrelated to an image due to their inability to process visual\ncontent when retrieving. In comparison, Dense text retrieval\ncan retrieve text in someway better than BM25 because it\nhas the ability to also take into consideration the semantic\nsimilarity of the documents but is that there is still no way for\nthem to retrieve images as well. The separate encoder approach\nuses two different encoding tools to classify and encode\nimages and text respectively. This leads to each space (text\nand image) being misaligned, resulting in a lower accuracy of\ncross-modal retrievals. OmniRAG does not suffer from this\nissue because it uses a single CLIP embedding space for\nencoding both text and images respectively, allowing for the\ndirect comparison of text and image vectors which produces\nthe highest retrieval accuracy of 89.0%.\nC. Agent Tool-Calling Behavior\nThe agentic architecture was tested against the capability of\nthe intelligent system (",
+        "type": "text",
+        "source": "RAG.pdf",
+        "page": 5
+    },
+    "18": {
+        "content": "[Uploaded Image Viewable by Agent: RAG ARCHI.png]",
+        "type": "image",
+        "source": "RAG ARCHI.png",
+        "path": "storage/documents\\RAG ARCHI.png"
+    },
+    "19": {
+        "content": "Seven Failure Points When Engineering a Retrieval Augmented\nGeneration System\nScott Barnett, Stefanus Kurniawan, Srikanth Thudumu, Zach Brannelly, Mohamed Abdelrazek\n{scott.barnett,stefanus.kurniawan,srikanth.thudumu,zach.brannelly,mohamed.abdelrazek}@deakin.edu.au\nApplied Artificial Intelligence Institute\nGeelong, Australia\nABSTRACT\nSoftware engineers are increasingly adding semantic search capabil-\nities to applications using a strategy known as Retrieval Augmented\nGeneration (RAG). A RAG system involves finding documents that\nsemantically match a query and then passing the documents to a\nlarge language model (LLM) such as ChatGPT to extract the right\nanswer using an LLM. RAG systems aim to: a) reduce the problem\nof hallucinated responses from LLMs, b) link sources/references\nto generated responses, and c) remove the need for annotating\ndocuments with meta-data. However, RAG systems suffer from lim-\nitations inherent to information retrieval systems and from reliance\non LLMs. In this",
+        "type": "text",
+        "source": "DATASETEXAM.pdf",
+        "page": 1
+    },
+    "20": {
+        "content": "CAIN 2024, April 2024, Lisbon, Portugal\nScott Barnett, Stefanus Kurniawan, Srikanth Thudumu, Zach Brannelly, Mohamed Abdelrazek\nand answer pairs. We indexed all documents then ran the\nqueries and stored the generated responses using GPT-4. All\nquestion and answer pairs were then validated with OpenAI\nevals 1. Manual inspection (all discrepancies, all flagged as\nincorrect, and a sample of correct labels) was analysed to\nidentify the patterns.\n\u2022 What are the key considerations when engineering a RAG\nsystem? (section 6) We present the lessons learned from three\ncase studies involving the implementation of a RAG system.\nThis presents the challenges faced and insights gained.\nContributions arising from this work include:\n\u2022 A catalogue of failure points (FP) that occur in RAG systems.\n\u2022 An experience report from 3 case studies of implementing a\nRAG system. Two currently running at Deakin University.\n\u2022 A research direction for RAG systems based on the lessons\nlearned from the 3 case studies.\n",
+        "type": "text",
+        "source": "DATASETEXAM.pdf",
+        "page": 2
+    },
+    "21": {
+        "content": "Seven Failure Points When Engineering a Retrieval Augmented Generation System\nCAIN 2024, April 2024, Lisbon, Portugal\nFigure 1: Indexing and Query processes required for creating a Retrieval Augmented Generation (RAG) system. The indexing\nprocess is typically done at development time and queries at runtime. Failure points identified in this study are shown in red\nboxes. All required stages are underlined. Figure expanded from [19].\nThe final stage of a RAG pipeline is when the answer is extracted\nfrom the generated text. Readers are responsible for filtering the\nnoise from the prompt, adhering to formatting instructions (i.e. an-\nswer the question as a list of options), and producing the output to\nreturn for the query. Implementation of a RAG system requires cus-\ntomising multiple prompts to process questions and answers. This\nprocess ensures that questions relevant for the domain are returned.\nThe use of large language models to answer real time questions\nfrom documents opens up new a",
+        "type": "text",
+        "source": "DATASETEXAM.pdf",
+        "page": 3
+    },
+    "22": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "DATASETEXAM.pdf",
+        "path": "storage/images\\DATASETEXAM.pdf_p3_img0.png",
+        "page": 3
+    },
+    "23": {
+        "content": "CAIN 2024, April 2024, Lisbon, Portugal\nScott Barnett, Stefanus Kurniawan, Srikanth Thudumu, Zach Brannelly, Mohamed Abdelrazek\nCase Study\nDomain\nDoc Types\nDataset Size\nRAG Stages\nSample Questions\nCognitive\nReviewer*\nResearch\nPDFs\n(Any size)\nChunker, Rewriter, Re-\ntriever, Reader\nWhat are the key points covered in\nthis paper?\nAI Tutor*\nEducation\nVideos, HTML,\nPDF\n38\nChunker, Rewriter,\nRetriever, Reader\nWhat were the topics covered in\nweek 6?\nBioASQ\nBiomedical\nScientific PDFs\n4017\nChunker,\nRetriever,\nReader\nDefine pseudotumor cerebri. How\nis it treated?\nTable 1: A summary of the RAG case studies presented in this paper. Case studies marked with a * are running systems currently\nin use.\nOpenEvals technique implemented by OpenAI6. From the gener-\nated questions we manually inspected 40 issues and all issues that\nthe OpenEvals flagged as inaccurate. We found that the automated\nevaluation was more pessimistic than a human rater for this domain.\nHowever, one threat to validity with this find",
+        "type": "text",
+        "source": "DATASETEXAM.pdf",
+        "page": 4
+    },
+    "24": {
+        "content": "Seven Failure Points When Engineering a Retrieval Augmented Generation System\nCAIN 2024, April 2024, Lisbon, Portugal\nFP\nLesson\nDescription\nCase Studies\nFP4\nLarger context get better results (Context refers to a\nparticular setting or situation in which the content\noccurs)\nA larger context enabled more accurate responses\n(8K vs 4K). Contrary to prior work with GPT-3.5 [13]\nAI Tutor\nFP1\nSemantic caching drives cost and latency down\nRAG systems struggle with concurrent users due to\nrate limits and the cost of LLMs. Prepopulate the\nsemantic cache with frequently asked questions [1].\nAI Tutor\nFP5-7\nJailbreaks bypass the RAG system and hit the safety\ntraining.\nResearch suggests fine-tuning LLMs reverses safety\ntraining [11], test all fine-tuned LLMs for RAG sys-\ntem.\nAI Tutor\nFP2, FP4\nAdding meta-data improves retrieval.\nAdding the file name and chunk number into the\nretrieved context helped the reader extract the re-\nquired information. Useful for chat dialogue.\nAI Tutor\nFP2, FP4-7\nOpen sou",
+        "type": "text",
+        "source": "DATASETEXAM.pdf",
+        "page": 5
+    },
+    "25": {
+        "content": "CAIN 2024, April 2024, Lisbon, Portugal\nScott Barnett, Stefanus Kurniawan, Srikanth Thudumu, Zach Brannelly, Mohamed Abdelrazek\nREFERENCES\n[1] Fu Bang. 2023. GPTCache: An Open-Source Semantic Cache for LLM Applications\nEnabling Faster Answers and Cost Savings. In 3rd Workshop for Natural Language\nProcessing Open Source Software.\n[2] Maria Casimiro, Paolo Romano, David Garlan, Gabriel Moreno, Eunsuk Kang, and\nMark Klein. 2022. Self-adaptive Machine Learning Systems: Research Challenges\nand Opportunities. 133\u2013155. https://doi.org/10.1007/978-3-031-15116-3_7\n[3] Jiawei Chen, Hongyu Lin, Xianpei Han, and Le Sun. 2023.\nBenchmarking\nLarge Language Models in Retrieval-Augmented Generation. arXiv preprint\narXiv:2309.01431 (2023).\n[4] Mingda Chen, Xilun Chen, and Wen-tau Yih. 2023. Efficient Open Domain\nMulti-Hop Question Answering with Few-Shot Data Synthesis. arXiv preprint\narXiv:2305.13691 (2023).\n[5] Alex Cummaudo, Scott Barnett, Rajesh Vasa, and John Grundy. 2020. Threshy:\nSupporting safe ",
+        "type": "text",
+        "source": "DATASETEXAM.pdf",
+        "page": 6
+    },
+    "26": {
+        "content": "Aptitude TestsQuestion & An",
+        "type": "text",
+        "source": "Test1.pdf",
+        "page": 1
+    },
+    "27": {
+        "content": "Image extracted from page 1",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p1_img0.png",
+        "page": 1
+    },
+    "28": {
+        "content": "Image extracted from page 1",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p1_img1.png",
+        "page": 1
+    },
+    "29": {
+        "content": "Image extracted from page 1",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p1_img2.png",
+        "page": 1
+    },
+    "30": {
+        "content": "Image extracted from page 1",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p1_img3.png",
+        "page": 1
+    },
+    "31": {
+        "content": "www.practiceaptitudetests.com  \nsupport@practiceaptitudetests.com  What a\n Aptitude tests are used to objectively measure a candidate\u2019s cognitive abilities, attitudes, personali\n \n The best way to prepare for aptitude tests is to practice them. The more you practice aptitude test\n \n We\u2019ve provided 5 aptitudequestions and answers for you to work through. Try and do each one u",
+        "type": "text",
+        "source": "Test1.pdf",
+        "page": 2
+    },
+    "32": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img0.png",
+        "page": 2
+    },
+    "33": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img1.png",
+        "page": 2
+    },
+    "34": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img2.png",
+        "page": 2
+    },
+    "35": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img3.png",
+        "page": 2
+    },
+    "36": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img4.png",
+        "page": 2
+    },
+    "37": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img5.png",
+        "page": 2
+    },
+    "38": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img6.png",
+        "page": 2
+    },
+    "39": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img7.png",
+        "page": 2
+    },
+    "40": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img8.png",
+        "page": 2
+    },
+    "41": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img9.png",
+        "page": 2
+    },
+    "42": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img10.png",
+        "page": 2
+    },
+    "43": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img11.png",
+        "page": 2
+    },
+    "44": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img12.png",
+        "page": 2
+    },
+    "45": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img13.png",
+        "page": 2
+    },
+    "46": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img14.png",
+        "page": 2
+    },
+    "47": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img15.png",
+        "page": 2
+    },
+    "48": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img16.png",
+        "page": 2
+    },
+    "49": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img17.png",
+        "page": 2
+    },
+    "50": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img18.png",
+        "page": 2
+    },
+    "51": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img19.png",
+        "page": 2
+    },
+    "52": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img20.png",
+        "page": 2
+    },
+    "53": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img21.png",
+        "page": 2
+    },
+    "54": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img22.png",
+        "page": 2
+    },
+    "55": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img23.png",
+        "page": 2
+    },
+    "56": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img24.png",
+        "page": 2
+    },
+    "57": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img25.png",
+        "page": 2
+    },
+    "58": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img26.png",
+        "page": 2
+    },
+    "59": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img27.png",
+        "page": 2
+    },
+    "60": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img28.png",
+        "page": 2
+    },
+    "61": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img29.png",
+        "page": 2
+    },
+    "62": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img30.png",
+        "page": 2
+    },
+    "63": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img31.png",
+        "page": 2
+    },
+    "64": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img32.png",
+        "page": 2
+    },
+    "65": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img33.png",
+        "page": 2
+    },
+    "66": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img34.png",
+        "page": 2
+    },
+    "67": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img35.png",
+        "page": 2
+    },
+    "68": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img36.png",
+        "page": 2
+    },
+    "69": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img37.png",
+        "page": 2
+    },
+    "70": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img38.png",
+        "page": 2
+    },
+    "71": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img39.png",
+        "page": 2
+    },
+    "72": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img40.png",
+        "page": 2
+    },
+    "73": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img41.png",
+        "page": 2
+    },
+    "74": {
+        "content": "Image extracted from page 2",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p2_img42.png",
+        "page": 2
+    },
+    "75": {
+        "content": "www.practiceaptitudetests.com  \nsupport@practiceaptitudetests.com  Questi\n \n What is the difference between the number of Canadian dollars could you buy with 3,500 EUR in A\n \n \nA) 122 \u2610\nB) 177  \u2610\n \nC) 133 \u2610\nD) 199 \u2610\n \n Solution\n \n Step 1:  Calculate the numberCanadian Dollars you could purchase in AprilEUR 3,500 \u00f7 1.06 = 3,",
+        "type": "text",
+        "source": "Test1.pdf",
+        "page": 3
+    },
+    "76": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img0.png",
+        "page": 3
+    },
+    "77": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img1.png",
+        "page": 3
+    },
+    "78": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img2.png",
+        "page": 3
+    },
+    "79": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img3.png",
+        "page": 3
+    },
+    "80": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img4.png",
+        "page": 3
+    },
+    "81": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img5.png",
+        "page": 3
+    },
+    "82": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img6.png",
+        "page": 3
+    },
+    "83": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img7.png",
+        "page": 3
+    },
+    "84": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img8.png",
+        "page": 3
+    },
+    "85": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img9.png",
+        "page": 3
+    },
+    "86": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img10.png",
+        "page": 3
+    },
+    "87": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img11.png",
+        "page": 3
+    },
+    "88": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img12.png",
+        "page": 3
+    },
+    "89": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img13.png",
+        "page": 3
+    },
+    "90": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img14.png",
+        "page": 3
+    },
+    "91": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img15.png",
+        "page": 3
+    },
+    "92": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img16.png",
+        "page": 3
+    },
+    "93": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img17.png",
+        "page": 3
+    },
+    "94": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img18.png",
+        "page": 3
+    },
+    "95": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img19.png",
+        "page": 3
+    },
+    "96": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img20.png",
+        "page": 3
+    },
+    "97": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img21.png",
+        "page": 3
+    },
+    "98": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img22.png",
+        "page": 3
+    },
+    "99": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img23.png",
+        "page": 3
+    },
+    "100": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img24.png",
+        "page": 3
+    },
+    "101": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img25.png",
+        "page": 3
+    },
+    "102": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p3_img26.png",
+        "page": 3
+    },
+    "103": {
+        "content": "www.practiceaptitudetests.com  \nsupport@practiceaptitudetests.com  Questi\n \n Which letter represents north-east?\n \n \n \nA) \u2610\nB) \u2610\n \nC) \u2610\nD) \u2610\n \n \n Solution\n \n Answer = D. East follows North in a clockwise direction.",
+        "type": "text",
+        "source": "Test1.pdf",
+        "page": 4
+    },
+    "104": {
+        "content": "Image extracted from page 4",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p4_img0.png",
+        "page": 4
+    },
+    "105": {
+        "content": "Image extracted from page 4",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p4_img1.png",
+        "page": 4
+    },
+    "106": {
+        "content": "Image extracted from page 4",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p4_img2.png",
+        "page": 4
+    },
+    "107": {
+        "content": "Image extracted from page 4",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p4_img3.png",
+        "page": 4
+    },
+    "108": {
+        "content": "Image extracted from page 4",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p4_img4.png",
+        "page": 4
+    },
+    "109": {
+        "content": "Image extracted from page 4",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p4_img5.png",
+        "page": 4
+    },
+    "110": {
+        "content": "Image extracted from page 4",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p4_img6.png",
+        "page": 4
+    },
+    "111": {
+        "content": "Image extracted from page 4",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p4_img7.png",
+        "page": 4
+    },
+    "112": {
+        "content": "Image extracted from page 4",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p4_img8.png",
+        "page": 4
+    },
+    "113": {
+        "content": "www.practiceaptitudetests.com  \nsupport@practiceaptitudetests.com  Questi\n \n The proposed flexible parental leave system is similar to the Icelandic model, in that mothers and fat\nA) True \u2610\nB) False   \u2610\n \nC) Cannot Say \u2610\n \n Solution\n \n False:  Not all twelve months would be paid. \u201cNew mothers would be entitled to four months' paid",
+        "type": "text",
+        "source": "Test1.pdf",
+        "page": 5
+    },
+    "114": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img0.png",
+        "page": 5
+    },
+    "115": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img1.png",
+        "page": 5
+    },
+    "116": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img2.png",
+        "page": 5
+    },
+    "117": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img3.png",
+        "page": 5
+    },
+    "118": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img4.png",
+        "page": 5
+    },
+    "119": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img5.png",
+        "page": 5
+    },
+    "120": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img6.png",
+        "page": 5
+    },
+    "121": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img7.png",
+        "page": 5
+    },
+    "122": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img8.png",
+        "page": 5
+    },
+    "123": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img9.png",
+        "page": 5
+    },
+    "124": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img10.png",
+        "page": 5
+    },
+    "125": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img11.png",
+        "page": 5
+    },
+    "126": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img12.png",
+        "page": 5
+    },
+    "127": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img13.png",
+        "page": 5
+    },
+    "128": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img14.png",
+        "page": 5
+    },
+    "129": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img15.png",
+        "page": 5
+    },
+    "130": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img16.png",
+        "page": 5
+    },
+    "131": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img17.png",
+        "page": 5
+    },
+    "132": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img18.png",
+        "page": 5
+    },
+    "133": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img19.png",
+        "page": 5
+    },
+    "134": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img20.png",
+        "page": 5
+    },
+    "135": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img21.png",
+        "page": 5
+    },
+    "136": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img22.png",
+        "page": 5
+    },
+    "137": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img23.png",
+        "page": 5
+    },
+    "138": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img24.png",
+        "page": 5
+    },
+    "139": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img25.png",
+        "page": 5
+    },
+    "140": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img26.png",
+        "page": 5
+    },
+    "141": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img27.png",
+        "page": 5
+    },
+    "142": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img28.png",
+        "page": 5
+    },
+    "143": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img29.png",
+        "page": 5
+    },
+    "144": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img30.png",
+        "page": 5
+    },
+    "145": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img31.png",
+        "page": 5
+    },
+    "146": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img32.png",
+        "page": 5
+    },
+    "147": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img33.png",
+        "page": 5
+    },
+    "148": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img34.png",
+        "page": 5
+    },
+    "149": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img35.png",
+        "page": 5
+    },
+    "150": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img36.png",
+        "page": 5
+    },
+    "151": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img37.png",
+        "page": 5
+    },
+    "152": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img38.png",
+        "page": 5
+    },
+    "153": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img39.png",
+        "page": 5
+    },
+    "154": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img40.png",
+        "page": 5
+    },
+    "155": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img41.png",
+        "page": 5
+    },
+    "156": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img42.png",
+        "page": 5
+    },
+    "157": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img43.png",
+        "page": 5
+    },
+    "158": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img44.png",
+        "page": 5
+    },
+    "159": {
+        "content": "Image extracted from page 5",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p5_img45.png",
+        "page": 5
+    },
+    "160": {
+        "content": "www.practiceaptitudetests.com  \nsupport@practiceaptitudetests.com  Questi\n \n Which of the given shapes would complete the sequence?\n \n \n \nA) \u2610\nB) \u2610\n \nC) \u2610\nD) \u2610\n \n \n Solution\n \n Answer = A. The number of lines featured in each square is related to which column they sit in. T",
+        "type": "text",
+        "source": "Test1.pdf",
+        "page": 6
+    },
+    "161": {
+        "content": "Image extracted from page 6",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p6_img0.png",
+        "page": 6
+    },
+    "162": {
+        "content": "Image extracted from page 6",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p6_img1.png",
+        "page": 6
+    },
+    "163": {
+        "content": "Image extracted from page 6",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p6_img2.png",
+        "page": 6
+    },
+    "164": {
+        "content": "Image extracted from page 6",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p6_img3.png",
+        "page": 6
+    },
+    "165": {
+        "content": "Image extracted from page 6",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p6_img4.png",
+        "page": 6
+    },
+    "166": {
+        "content": "Image extracted from page 6",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p6_img5.png",
+        "page": 6
+    },
+    "167": {
+        "content": "Image extracted from page 6",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p6_img6.png",
+        "page": 6
+    },
+    "168": {
+        "content": "Image extracted from page 6",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p6_img7.png",
+        "page": 6
+    },
+    "169": {
+        "content": "Image extracted from page 6",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p6_img8.png",
+        "page": 6
+    },
+    "170": {
+        "content": "Image extracted from page 6",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p6_img9.png",
+        "page": 6
+    },
+    "171": {
+        "content": "www.practiceaptitudetests.com  \nsupport@practiceaptitudetests.com  Questi\n \n In Month 2, 5,000 Pesta is converted into Lita. In Month 5 this is converted back into what value in\n \n \n \nA) \u00a3449\u2610\nB) \u00a3469\u2610\n \nC) \u00a3459\u2610\nD) \u00a3479\u2610\n \n Solution\n \n Step 1:Convert 5,000 Pesta into Lita by converting into \u00a3 first5,000 Pesta / 11.35 = \u00a3440.53Step",
+        "type": "text",
+        "source": "Test1.pdf",
+        "page": 7
+    },
+    "172": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img0.png",
+        "page": 7
+    },
+    "173": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img1.png",
+        "page": 7
+    },
+    "174": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img2.png",
+        "page": 7
+    },
+    "175": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img3.png",
+        "page": 7
+    },
+    "176": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img4.png",
+        "page": 7
+    },
+    "177": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img5.png",
+        "page": 7
+    },
+    "178": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img6.png",
+        "page": 7
+    },
+    "179": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img7.png",
+        "page": 7
+    },
+    "180": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img8.png",
+        "page": 7
+    },
+    "181": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img9.png",
+        "page": 7
+    },
+    "182": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img10.png",
+        "page": 7
+    },
+    "183": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img11.png",
+        "page": 7
+    },
+    "184": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img12.png",
+        "page": 7
+    },
+    "185": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img13.png",
+        "page": 7
+    },
+    "186": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img14.png",
+        "page": 7
+    },
+    "187": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img15.png",
+        "page": 7
+    },
+    "188": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img16.png",
+        "page": 7
+    },
+    "189": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img17.png",
+        "page": 7
+    },
+    "190": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img18.png",
+        "page": 7
+    },
+    "191": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img19.png",
+        "page": 7
+    },
+    "192": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img20.png",
+        "page": 7
+    },
+    "193": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img21.png",
+        "page": 7
+    },
+    "194": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img22.png",
+        "page": 7
+    },
+    "195": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img23.png",
+        "page": 7
+    },
+    "196": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img24.png",
+        "page": 7
+    },
+    "197": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img25.png",
+        "page": 7
+    },
+    "198": {
+        "content": "Image extracted from page 7",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p7_img26.png",
+        "page": 7
+    },
+    "199": {
+        "content": "www.practiceaptitudetests.com  \nsupport@practiceaptitudetests.com  Practi\n Join 9+ million people and access our complete Aptitud",
+        "type": "text",
+        "source": "Test1.pdf",
+        "page": 8
+    },
+    "200": {
+        "content": "Image extracted from page 8",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p8_img0.png",
+        "page": 8
+    },
+    "201": {
+        "content": "Image extracted from page 8",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p8_img1.png",
+        "page": 8
+    },
+    "202": {
+        "content": "Image extracted from page 8",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p8_img2.png",
+        "page": 8
+    },
+    "203": {
+        "content": "Image extracted from page 8",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p8_img3.png",
+        "page": 8
+    },
+    "204": {
+        "content": "Image extracted from page 8",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p8_img4.png",
+        "page": 8
+    },
+    "205": {
+        "content": "Image extracted from page 8",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p8_img5.png",
+        "page": 8
+    },
+    "206": {
+        "content": "Image extracted from page 8",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p8_img6.png",
+        "page": 8
+    },
+    "207": {
+        "content": "Image extracted from page 8",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p8_img7.png",
+        "page": 8
+    },
+    "208": {
+        "content": "Image extracted from page 8",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p8_img8.png",
+        "page": 8
+    },
+    "209": {
+        "content": "www.practiceaptitudetests.com  \nsupport@practiceaptitudetests.com",
+        "type": "text",
+        "source": "Test1.pdf",
+        "page": 9
+    },
+    "210": {
+        "content": "Image extracted from page 9",
+        "type": "image",
+        "source": "Test1.pdf",
+        "path": "storage/images\\Test1.pdf_p9_img0.png",
+        "page": 9
+    },
+    "211": {
+        "content": "[Uploaded Image Viewable by Agent: 05b57513-3a9b-4ed6-919f-1794a69fa5e3.png]",
+        "type": "image",
+        "source": "05b57513-3a9b-4ed6-919f-1794a69fa5e3.png",
+        "path": "storage/documents\\05b57513-3a9b-4ed6-919f-1794a69fa5e3.png"
+    },
+    "212": {
+        "content": "Seven Failure Points When Engineering a Retrieval Augmented\nGeneration System\nScott Barnett, Stefanus Kurniawan, Srikanth Thudumu, Zach Brannelly, Mohamed Abdelrazek\n{scott.barnett,stefanus.kurniawan,srikanth.thudumu,zach.brannelly,mohamed.abdelrazek}@deakin.edu.au\nApplied Artificial Intelligence Institute\nGeelong, Australia\nABSTRACT\nSoftware engineers are increasingly adding semantic search capabil-\nities to applications using a strategy known as Retrieval Augmented\nGeneration (RAG). A RAG system involves finding documents that\nsemantically match a query and then passing the documents to a\nlarge language model (LLM) such as ChatGPT to extract the right\nanswer using an LLM. RAG systems aim to: a) reduce the problem\nof hallucinated responses from LLMs, b) link sources/references\nto generated responses, and c) remove the need for annotating\ndocuments with meta-data. However, RAG systems suffer from lim-\nitations inherent to information retrieval systems and from reliance\non LLMs. In this",
+        "type": "text",
+        "source": "DATASETEXAM.pdf",
+        "page": 1
+    },
+    "213": {
+        "content": "CAIN 2024, April 2024, Lisbon, Portugal\nScott Barnett, Stefanus Kurniawan, Srikanth Thudumu, Zach Brannelly, Mohamed Abdelrazek\nand answer pairs. We indexed all documents then ran the\nqueries and stored the generated responses using GPT-4. All\nquestion and answer pairs were then validated with OpenAI\nevals 1. Manual inspection (all discrepancies, all flagged as\nincorrect, and a sample of correct labels) was analysed to\nidentify the patterns.\n\u2022 What are the key considerations when engineering a RAG\nsystem? (section 6) We present the lessons learned from three\ncase studies involving the implementation of a RAG system.\nThis presents the challenges faced and insights gained.\nContributions arising from this work include:\n\u2022 A catalogue of failure points (FP) that occur in RAG systems.\n\u2022 An experience report from 3 case studies of implementing a\nRAG system. Two currently running at Deakin University.\n\u2022 A research direction for RAG systems based on the lessons\nlearned from the 3 case studies.\n",
+        "type": "text",
+        "source": "DATASETEXAM.pdf",
+        "page": 2
+    },
+    "214": {
+        "content": "Seven Failure Points When Engineering a Retrieval Augmented Generation System\nCAIN 2024, April 2024, Lisbon, Portugal\nFigure 1: Indexing and Query processes required for creating a Retrieval Augmented Generation (RAG) system. The indexing\nprocess is typically done at development time and queries at runtime. Failure points identified in this study are shown in red\nboxes. All required stages are underlined. Figure expanded from [19].\nThe final stage of a RAG pipeline is when the answer is extracted\nfrom the generated text. Readers are responsible for filtering the\nnoise from the prompt, adhering to formatting instructions (i.e. an-\nswer the question as a list of options), and producing the output to\nreturn for the query. Implementation of a RAG system requires cus-\ntomising multiple prompts to process questions and answers. This\nprocess ensures that questions relevant for the domain are returned.\nThe use of large language models to answer real time questions\nfrom documents opens up new a",
+        "type": "text",
+        "source": "DATASETEXAM.pdf",
+        "page": 3
+    },
+    "215": {
+        "content": "Image extracted from page 3",
+        "type": "image",
+        "source": "DATASETEXAM.pdf",
+        "path": "storage/images\\DATASETEXAM.pdf_p3_img0.png",
+        "page": 3
+    },
+    "216": {
+        "content": "CAIN 2024, April 2024, Lisbon, Portugal\nScott Barnett, Stefanus Kurniawan, Srikanth Thudumu, Zach Brannelly, Mohamed Abdelrazek\nCase Study\nDomain\nDoc Types\nDataset Size\nRAG Stages\nSample Questions\nCognitive\nReviewer*\nResearch\nPDFs\n(Any size)\nChunker, Rewriter, Re-\ntriever, Reader\nWhat are the key points covered in\nthis paper?\nAI Tutor*\nEducation\nVideos, HTML,\nPDF\n38\nChunker, Rewriter,\nRetriever, Reader\nWhat were the topics covered in\nweek 6?\nBioASQ\nBiomedical\nScientific PDFs\n4017\nChunker,\nRetriever,\nReader\nDefine pseudotumor cerebri. How\nis it treated?\nTable 1: A summary of the RAG case studies presented in this paper. Case studies marked with a * are running systems currently\nin use.\nOpenEvals technique implemented by OpenAI6. From the gener-\nated questions we manually inspected 40 issues and all issues that\nthe OpenEvals flagged as inaccurate. We found that the automated\nevaluation was more pessimistic than a human rater for this domain.\nHowever, one threat to validity with this find",
+        "type": "text",
+        "source": "DATASETEXAM.pdf",
+        "page": 4
+    },
+    "217": {
+        "content": "Seven Failure Points When Engineering a Retrieval Augmented Generation System\nCAIN 2024, April 2024, Lisbon, Portugal\nFP\nLesson\nDescription\nCase Studies\nFP4\nLarger context get better results (Context refers to a\nparticular setting or situation in which the content\noccurs)\nA larger context enabled more accurate responses\n(8K vs 4K). Contrary to prior work with GPT-3.5 [13]\nAI Tutor\nFP1\nSemantic caching drives cost and latency down\nRAG systems struggle with concurrent users due to\nrate limits and the cost of LLMs. Prepopulate the\nsemantic cache with frequently asked questions [1].\nAI Tutor\nFP5-7\nJailbreaks bypass the RAG system and hit the safety\ntraining.\nResearch suggests fine-tuning LLMs reverses safety\ntraining [11], test all fine-tuned LLMs for RAG sys-\ntem.\nAI Tutor\nFP2, FP4\nAdding meta-data improves retrieval.\nAdding the file name and chunk number into the\nretrieved context helped the reader extract the re-\nquired information. Useful for chat dialogue.\nAI Tutor\nFP2, FP4-7\nOpen sou",
+        "type": "text",
+        "source": "DATASETEXAM.pdf",
+        "page": 5
+    },
+    "218": {
+        "content": "CAIN 2024, April 2024, Lisbon, Portugal\nScott Barnett, Stefanus Kurniawan, Srikanth Thudumu, Zach Brannelly, Mohamed Abdelrazek\nREFERENCES\n[1] Fu Bang. 2023. GPTCache: An Open-Source Semantic Cache for LLM Applications\nEnabling Faster Answers and Cost Savings. In 3rd Workshop for Natural Language\nProcessing Open Source Software.\n[2] Maria Casimiro, Paolo Romano, David Garlan, Gabriel Moreno, Eunsuk Kang, and\nMark Klein. 2022. Self-adaptive Machine Learning Systems: Research Challenges\nand Opportunities. 133\u2013155. https://doi.org/10.1007/978-3-031-15116-3_7\n[3] Jiawei Chen, Hongyu Lin, Xianpei Han, and Le Sun. 2023.\nBenchmarking\nLarge Language Models in Retrieval-Augmented Generation. arXiv preprint\narXiv:2309.01431 (2023).\n[4] Mingda Chen, Xilun Chen, and Wen-tau Yih. 2023. Efficient Open Domain\nMulti-Hop Question Answering with Few-Shot Data Synthesis. arXiv preprint\narXiv:2305.13691 (2023).\n[5] Alex Cummaudo, Scott Barnett, Rajesh Vasa, and John Grundy. 2020. Threshy:\nSupporting safe ",
+        "type": "text",
+        "source": "DATASETEXAM.pdf",
+        "page": 6
+    }
+}
